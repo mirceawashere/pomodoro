@@ -3,7 +3,7 @@ import time
 
 
 def start_timer(minutes):
-                seconds = int(minutes) * 60  # Convert minutes to seconds
+                seconds = int(minutes) * 60  
                 print(f"Timer started for {minutes} minutes...")
                 time.sleep(seconds)  # Wait for the specified time
                 return show_alert_with_osascript(f"Au trecut {minutes} minute, mai bagi o tura?", "Bine bo$$!")
@@ -20,15 +20,15 @@ def show_input_with_osascript(message, title="Input", default_text=""):
     '''
     result = subprocess.run(["osascript", "-e", script], text=True, capture_output=True)
     
-    # Check if user pressed "Cancel"
-    if "button returned:Cancel" in result.stdout:
-        return None  # User canceled
     
-    # Extract the user input
+    if "button returned:Cancel" in result.stdout:
+        return None  
+    
+   
     user_input = result.stdout.split("text returned:")[1].strip()
     return user_input
 
-# Example usage
+
 user_response = show_input_with_osascript("Cate minute", "Name Input")
 if user_response is None:
     print("User canceled the input.")
