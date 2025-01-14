@@ -4,12 +4,11 @@ import time
 
 def start_timer(minutes):
                 seconds = int(minutes) * 60  
-                print(f"Timer started for {minutes} minutes...")
-                time.sleep(seconds)  # Wait for the specified time
-                return show_alert_with_osascript(f"Au trecut {minutes} minute, mai bagi o tura?", "Bine bo$$!")
+                time.sleep(seconds)  
+                return show_alert_with_osascript(f"So {minutes} minutes have passed, want to go another round?", "Nice!")
 
 def show_alert_with_osascript(message, title="Alert"):
-            script = f'display dialog "{message}" with title "{title}" buttons {{"Repeta", "Inchide"}} default button "Inchide"'
+            script = f'display dialog "{message}" with title "{title}" buttons {{"Repeat", "Close"}} default button "Close"'
             result = subprocess.run(["osascript", "-e", script], text=True, capture_output=True)
             button_clicked = result.stdout.strip().replace("button returned:", "").strip()
             return button_clicked
@@ -36,7 +35,7 @@ else:
     print(f"User entered: {user_response}")
     while True:
         button = start_timer(user_response)
-        if button == "Inchide":
+        if button == "Close":
             break
     
         
